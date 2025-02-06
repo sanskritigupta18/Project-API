@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import rateLimit from "express-rate-limit";
 dotenv.config();
 
 import cookieParser from "cookie-parser";
@@ -10,13 +9,6 @@ app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true,
 }));
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-    message: "Too many requests from this IP, please try again after 15 minutes"
-});
-
-app.use(limiter);
 
 app.use(express.json({limit: "16kb"}));
 app.use(express.urlencoded({extended: true, limit: "16kb"}));
